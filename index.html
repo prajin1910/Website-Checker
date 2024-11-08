@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Crackers Project</title>
+    <meta name="description" content="Cyber Crackers Project by St. Joseph's Institute of Technology. Get information about domain names and IP addresses.">
+    <link rel="preload" href="https://www.urlvoid.com/styles/fonts/Raleway-Bold.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="icon" type="image/png" href="https://www.urlvoid.com/favicon.ico">
+    <link rel="stylesheet" href="https://www.urlvoid.com/styles/fontawesome/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.urlvoid.com/styles/bootstrap-select.min.css">
+    <style>
+        /* Your existing CSS styles... */
+        @import url("https://www.urlvoid.com/styles/bootstrap.min.css");
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right,  #0a1232, #022d61);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #333;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #343a40;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 28px;
+            color: #fff;
+            transition: color 0.3s ease;
+        }
+        
+        .navbar-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+        }
+
+        .navbar-nav .nav-item {
+            display: inline-block;
+            margin: 0 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-link {
+            color: #9a9da0;
+            font-size: 18px;
+            padding: 10px 20px;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #fff;
+            background-color: #495057;
+            border-radius: 5px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+            transition: all 0.3s ease;
+            transform: translateY(0);
+            opacity: 1;
+            position: relative; /* Add position relative for absolute positioning of clear button */
+        }
+
+        @keyframes fadeInUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #007bff;
+            transition: color 0.3s ease;
+        }
+        .clear-button {
+            position: absolute;
+            top: 145px;
+            left: 360px;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            color: #999;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+        #clearButton {
+    position: absolute;
+    left: 360px;
+    top: 145px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #999;
+    cursor: pointer;
+    display: none; /* Initially hidden */
+        }
+
+        h2:hover {
+            color: #0056b3;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 40px); /* Adjust width to accommodate the clear button */
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Style for the clear button */
+
+        .clear-button:hover {
+            color: #333;
+        }
+
+        .button-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+        }
+
+        button {
+            padding: 15px 25px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: #007bff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .result {
+            margin-top: 20px;
+            text-align: left;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .result p {
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .result p.passed {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .result p.failed {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .result p.error {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+
+        .result p.highlight {
+            font-weight: bold;
+            font-size: 18px;
+            color: #fff;
+            background-color: #28a745;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .result p.not-safe {
+            font-weight: bold;
+            font-size: 18px;
+            color: #fff;
+            background-color: #dc3545;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        #map {
+            margin-top: 20px;
+            height: 300px;
+            width: 100%;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+        }
+        .result {
+    margin-top: 20px; /* Adjust the margin-top value as needed */
+    text-align: left;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.nav-item.active .nav-link {
+    color: #fff; /* Change the color to indicate it's active */
+    background-color: #495057; /* Change the background color to indicate it's active */
+    border-radius: 5px;
+}
+.nav-item.active .nav-link {
+    color: #fff; /* Change the color to indicate it's active */
+    background-color: #495057; /* Change the background color to indicate it's active */
+    border-radius: 5px;
+    text-decoration: underline; /* Add underline to the active link */
+}
+
+
+
+footer {
+    margin-top: 20px; /* Adjust the margin-top value as needed */
+    width: 100%;
+    background-color: #343a40;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+}
+
+
+        
+
+        @media only screen and (max-width: 768px) {
+            .container {
+                padding: 20px;
+                max-width: 100%;
+            }
+
+            .navbar-brand {
+                font-size: 24px;
+            }
+
+            .nav-link {
+                font-size: 16px;
+            }
+            .input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#urlInput {
+    width: calc(100% - 40px); /* Adjusted width to accommodate the clear button */
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+}
+
+
+        .container {
+            margin-top: 70px; /* Added margin to create space between container and navigation bar */
+            /* Your existing CSS styles... */
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<a class="navbar-brand" href="#">Cyber Crackers</a>
+<div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+    <ul class="navbar-nav">
+        <li class="nav-item active">
+            <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="precautions.html">Precautions</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="map.html">Tracker</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
+        </li>
+    </ul>
+</div>
+</nav>
+<div class="container" id="mainContainer">
+<h2>Cyber Security Checker</h2>
+<div class="input-container"> <!-- Added a div to contain the input and clear button -->
+    <input type="text" id="urlInput" placeholder="Enter the URL">
+    <button class="clear-button" id="clearButton" onclick="clearInput()" style="display: none;">&times;</button>
+</div>
+<div class="button-container">
+    <button id="checkButton" onclick="checkSafety()">Check</button>
+    <div class="loading-spinner" id="loadingSpinner"></div>
+</div>
+<div id="result" class="result"></div>
+<a href="#" id="locationLink" onclick="navigateToLocation()">To find location</a>
+</div>
+<footer>
+<p>&copy; 2024 Cyber Crackers Project - St. Joseph's Institute of Technology</p>
+</footer>
+<script>
+function checkSafety() {
+    const urlInput = document.getElementById('urlInput').value.trim();
+
+    if (!urlInput) {
+        showError("Please enter a URL.");
+        return;
+    }
+
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const checkButton = document.getElementById('checkButton');
+    const resultDiv = document.getElementById('result');
+    const locationLink = document.getElementById('locationLink');
+
+    resultDiv.style.opacity = 0;
+    checkButton.style.display = 'none';
+    loadingSpinner.style.display = 'inline-block';
+
+    setTimeout(() => {
+        const httpsCheck = urlInput.startsWith('https://');
+
+        let sslCheck = false;
+        let sslDetails = '';
+        if (httpsCheck) {
+            sslCheck = true;
+            sslDetails = "SSL Certificate Check: Passed";
+        } else {
+            sslDetails = "SSL Certificate Check: Skipped (not using HTTPS)";
+        }
+
+        const BLACKLISTED_DOMAINS = [
+            "malicious.com",
+            "phishing.com",
+            "badwebsite.com"
+        ];
+        const parsedUrl = new URL(urlInput);
+        const hostname = parsedUrl.hostname;
+        const blacklistCheck = !BLACKLISTED_DOMAINS.includes(hostname);
+        const blacklistDetails = blacklistCheck ? "Blacklist Check: Passed" : "Blacklist Check: Failed (listed on a blacklist)";
+
+        let ipDetails = '';
+        resolveIPAddress(hostname, (err, ipAddress) => {
+            if (err) {
+                ipDetails = `<p class="failed">IP Address: Unable to resolve host (${err.message})</p>`;
+            } else {
+                ipDetails = `<p class="passed">IP Address: ${ipAddress}</p>`;
+            }
+
+            loadingSpinner.style.display = 'none';
+            checkButton.style.display = 'inline-block';
+            resultDiv.innerHTML = `
+                <p class="${httpsCheck ? 'passed' : 'failed'}">HTTPS Check: ${httpsCheck ? 'Passed' : 'Failed (not using HTTPS)'}</p>
+                <p class="${sslCheck ? 'passed' : 'failed'}">${sslDetails}</p>
+                <p class="${blacklistCheck ? 'passed' : 'failed'}">${blacklistDetails}</p>
+                ${ipDetails}
+                <p class="${httpsCheck && sslCheck && blacklistCheck ? 'highlight' : 'not-safe'}">
+                    ${httpsCheck && sslCheck && blacklistCheck ? 'The website is considered safe.' : 'The website is not considered safe.'}
+                </p>
+            `;
+            resultDiv.style.opacity = 1;
+
+            // Show clear button after getting the result
+            const clearButton = document.getElementById('clearButton');
+            clearButton.style.display = 'inline-block';
+        });
+    }, 1000);
+}
+
+function resolveIPAddress(hostname, callback) {
+    const xhr  = new XMLHttpRequest();
+    xhr.open("GET", `https://dns.google/resolve?name=${hostname}&type=A`);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+                if (response.Answer && response.Answer.length > 0) {
+                    callback(null, response.Answer[0].data);
+                } else {
+                    callback(new Error("No IP address found"));
+                }
+            } else {
+                callback(new Error("Failed to resolve IP address"));
+            }
+        }
+    };
+    xhr.send();
+}
+
+function showError(message) {
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = `<p class="error">${message}</p>`;
+    resultDiv.style.opacity = 1;
+}
+
+function navigateToLocation() {
+    const urlInput = document.getElementById('urlInput').value.trim();
+    if (urlInput) {
+        window.location.href = `location.html?url=${encodeURIComponent(urlInput)}`;
+    } else {
+        showError('Please enter a URL to find its location.');
+    }
+}
+
+function clearInput() {
+    const urlInput = document.getElementById('urlInput');
+    urlInput.value = '';
+    const clearButton = document.getElementById('clearButton');
+    clearButton.style.display = 'none';
+}
+
+document.getElementById('urlInput').addEventListener('input', function() {
+    const clearButton = document.getElementById('clearButton');
+    if (this.value.trim() !== '') {
+        clearButton.style.display = 'inline-block';
+    } else {
+        clearButton.style.display = 'none';
+    }
+});
+</script>
+</body>
+</html>
